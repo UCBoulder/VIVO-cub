@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
+
+<!-- See guidelines in vitro/doc/list_view_configuration_guidelines.txt -->
+
+<list-view-config>
+    <query-select>    
+        PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+        PREFIX core: &lt;http://vivoweb.org/ontology/core#&gt;
+        PREFIX afn:  &lt;http://jena.hpl.hp.com/ARQ/function#&gt;
+        PREFIX vitro: &lt;http://vitro.mannlib.cornell.edu/ns/vitro/0.7#&gt;
+        PREFIX obo:   &lt;http://purl.obolibrary.org/obo/&gt;
+        PREFIX skos:  &lt;http://www.w3.org/2004/02/skos/core#&gt;
+        
+        SELECT DISTINCT
+          <collated>?subclass</collated> 
+            ?awardName
+            ?person
+            ?personName
+            ?dtv
+        WHERE {
+            ?subject ?property ?person .
+            ?person rdfs:label ?personName .
+            ?person core:relatedBy ?awardreceipt .
+            ?awardreceipt a core:AwardReceipt .
+            ?awardreceipt core:relates ?award.
+            ?awardreceipt core:dateTimeValue ?dt .
+            ?dt core:dateTime ?dtv .
+            ?award a core:Award .
+            ?award rdfs:label ?awardName .
+	    <collated>
+            OPTIONAL { 
+		?subclass rdfs:subClassOf skos:Concept 
+            } 
+            </collated>
+        } ORDER BY ?awardName <collated>?subclass</collated> DESC(?dtv) ?personName
+    </query-select>
+
+    <query-construct>
+        PREFIX core: &lt;http://vivoweb.org/ontology/core#&gt;
+        PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+        PREFIX obo:   &lt;http://purl.obolibrary.org/obo/&gt;
+        CONSTRUCT {
+            ?subject ?property ?person .
+            ?person core:relatedBy ?awardreceipt .
+            ?awardreceipt a core:AwardReceipt .
+            ?awardreceipt core:dateTimeValue ?dt .
+            ?dt core:dateTime ?dtv .
+        } WHERE {
+            ?subject ?property ?person .
+            ?person rdfs:label ?personName .
+            ?person core:relatedBy ?awardreceipt .
+            ?awardreceipt a core:AwardReceipt .
+            ?awardreceipt core:dateTimeValue ?dt .
+            ?dt core:dateTime ?dtv .
+        } 
+    </query-construct>
+ 
+    <query-construct>
+        PREFIX core: &lt;http://vivoweb.org/ontology/core#&gt;
+        PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;    
+        PREFIX obo:   &lt;http://purl.obolibrary.org/obo/&gt;
+        CONSTRUCT { 
+            ?subject ?property ?person .
+            ?person rdfs:label ?personName .
+            ?person core:relatedBy ?awardreceipt .
+            ?awardreceipt a core:AwardReceipt .
+            ?awardreceipt core:relates ?award .
+            ?award a core:Award .
+            ?award rdfs:label ?awardName .
+        } WHERE {
+            ?subject ?property ?person .
+            ?person rdfs:label ?personName .
+            ?person core:relatedBy ?awardreceipt .
+            ?awardreceipt a core:AwardReceipt .
+            ?awardreceipt core:relates ?award .
+            ?award a core:Award .
+            ?award rdfs:label ?awardName .
+        } 
+    </query-construct>
+    
+    <template>propStatement-awardInOrganization.ftl</template>
+    <postprocessor>edu.cornell.mannlib.vitro.webapp.web.templatemodels.individual.MaintainDuplicatesObjectPropertyDataPostProcessor</postprocessor>
+
+</list-view-config>

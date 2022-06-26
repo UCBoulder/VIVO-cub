@@ -1,4 +1,4 @@
-<#-- $This file is distributed under the terms of the license in LICENSE$ -->
+<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 
 <#-- Macros used to build the statistical information on the home page -->
 
@@ -39,7 +39,7 @@
                 <#if (class.uri?contains("FacultyMember")) >
                     <#assign foundClassGroup = true />
                     <#if (class.individualCount > 0) >
-                        <script>var facultyMemberCount = ${class.individualCount?string?replace(",","")?replace(".","")};</script>
+                        <script>var facultyMemberCount = ${class.individualCount?string?replace(",","")};</script>
                     <#else>
                         <script>var facultyMemberCount = 0;</script>
                     </#if>
@@ -71,7 +71,7 @@
                         <#if !firstPopulatedClassGroup??>
                             <#assign firstPopulatedClassGroup = group />
                         </#if>
-                        <#if !group.uri?contains("equipment") && !group.uri?contains("course") >
+                        <#if !group.uri?contains("events") && !group.uri?contains("location") >
                             <li>
                                 <a href="${urls.base}/browse">
                                     <p  class="stats-count">
@@ -101,7 +101,7 @@
             ${classGroupList}
     <#else>
         <h3 id="noContentMsg">${i18n().no_content_create_groups_classes}</h3>
-
+        
         <#if user.loggedIn>
             <#if user.hasSiteAdminAccess>
                 <p>${i18n().you_can} <a href="${urls.siteAdmin}" title="${i18n().add_content_manage_site}">${i18n().add_content_manage_site}</a> ${i18n().from_site_admin_page}</p>
@@ -110,7 +110,7 @@
             <p>${i18n().please} <a href="${urls.login}" title="${i18n().login_to_manage_site}">${i18n().log_in}</a> ${i18n().to_manage_content}</p>
         </#if>
     </#if>
-
+            
 </#macro>
 
 <#-- Renders the html for the research section on the home page. -->
@@ -131,7 +131,7 @@
                                 <#if class.name?substring(class.name?length-1) == "s">
                                     ${class.name}
                                 <#else>
-                                    ${class.name}s
+                                    ${class.name}s 
                                 </#if>
                             </a>
                         </li>
@@ -141,7 +141,7 @@
             </#if>
         </#list>
         <#if !foundClassGroup>
-            <p><li style="padding-left:1.2em">${i18n().no_research_content_found}</li></p>
+            <p><li style="padding-left:1.2em">${i18n().no_research_content_found}</li></p> 
         </#if>
     </ul>
 </section>
@@ -154,7 +154,7 @@
         <h4>${i18n().departments}</h4>
         <div id="academic-depts">
         </div>
-    </section>
+    </section>        
 </#macro>
 
 <#-- builds the "academic departments" box on the home page -->
@@ -165,8 +165,9 @@ var academicDepartments = [
     <#list academicDeptDG as resultRow>
         <#assign uri = resultRow["theURI"] />
         <#assign label = resultRow["name"] />
-        {"uri": "${uri?url}", "name": "${label}"}<#if (resultRow_has_next)>,</#if>
-    </#list>
+        <#assign localName = uri?substring(uri?last_index_of("/")) />
+            {"uri": "${localName}", "name": "${label}"}<#if (resultRow_has_next)>,</#if>
+    </#list>        
 </#if>
 ];
 var urlsBase = "${urls.base}";
@@ -178,7 +179,7 @@ var urlsBase = "${urls.base}";
 <#-- as the leaflet javascript library.                                     -->
 <#macro geographicFocusHtml>
     <section id="home-geo-focus" class="home-sections">
-        <h4>${i18n().geographic_focus}</h4>
+        <h4>International Activities</h4>
         <#-- map controls allow toggling between multiple map types: e.g., global, country, state/province. -->
         <#-- VIVO default is for only a global display, though the javascript exists to support the other   -->
         <#-- types. See map documentation for additional information on how to implement additional types.  -->
@@ -186,8 +187,8 @@ var urlsBase = "${urls.base}";
             <div id="mapControls">
                 <a id="globalLink" class="selected" href="javascript:">${i18n().global_research}</a>&nbsp;|&nbsp;
                 <a id="countryLink" href="javascript:">${i18n().country_wide_research}</a>&nbsp;|&nbsp;
-                <a id="localLink" href="javascript:">${i18n().local_research}</a>
-            </div>
+                <a id="localLink" href="javascript:">${i18n().local_research}</a>  
+            </div>  
         -->
         <div id="researcherTotal"></div>
         <div id="timeIndicatorGeo">
@@ -196,9 +197,9 @@ var urlsBase = "${urls.base}";
             </span>
         </div>
         <div id="mapGlobal" class="mapArea"></div>
-       <#--
+       <#--  
             <div id="mapCountry" class="mapArea"></div>
-            <div id="mapLocal" class="mapArea"></div>
+            <div id="mapLocal" class="mapArea"></div> 
        -->
     </section>
 </#macro>

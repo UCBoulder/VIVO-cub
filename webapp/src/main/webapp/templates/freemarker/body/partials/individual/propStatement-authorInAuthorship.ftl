@@ -1,11 +1,11 @@
-<#-- $This file is distributed under the terms of the license in LICENSE$ -->
+<#-- $This file is distributed under the terms of the license in /doc/license.txt$ -->
 
 <#-- Custom object property statement view for faux property "selected publications". See the PropertyConfig.n3 file for details.
-
+    
      This template must be self-contained and not rely on other variables set for the individual page, because it
-     is also used to generate the property statement during a deletion.
+     is also used to generate the property statement during a deletion.  
  -->
-
+ 
 <#import "lib-sequence.ftl" as s>
 <#import "lib-datetime.ftl" as dt>
 
@@ -18,7 +18,7 @@
     <span class="hideThis">&nbsp;</span>
     <script type="text/javascript" >
         $('span.hideThis').parent().parent().addClass("hideThis");
-        if ( jQuery.isEmptyObject($('h3#relatedBy-Authorship').attr('class')) ) {
+        if ( $('h3#relatedBy-Authorship').attr('class').length == 0 ) {
             $('h3#relatedBy-Authorship').addClass('hiddenPubs');
         }
         $('span.hideThis').parent().remove();
@@ -110,50 +110,30 @@
             <a href="${profileUrl(statement.uri("authorship"))}" title="${i18n().missing_info_resource}">${i18n().missing_info_resource}</a>
         </#if>
     </#local>
+ 
+    <#local doi>
+      <#if statement.doi??>
+        <a href="http://dx.doi.org/${statement.doi}" target="_blank"><img src="https://img.shields.io/badge/Published%20Version--blue.svg"></a>
+      </#if>
+      <#if statement.cuscholar??>
+        <a href="${statement.cuscholar}" target="_blank"><img src="https://img.shields.io/badge/Open%20Access%20Copy--orange.svg"></a>
+      </#if>
+    </#local>
 
     <#local altMetric>
         <#if altmetricEnabled??>
             <#if statement.doi??>
-                <div data-badge-popover="right" data-badge-type="4" data-doi="${statement.doi}" data-hide-no-mentions="true" class="altmetric-embed" style="display: inline;"></div>
+                <div data-badge-popover="right" data-badge-type="1" data-doi="${statement.doi}" data-hide-no-mentions="true" class="altmetric-embed" style="display: inline;"></div>
             <#elseif statement.pmid??>
-                <div data-badge-popover="right" data-badge-type="4" data-pmid="${statement.pmid}" data-hide-no-mentions="true" class="altmetric-embed" style="display: inline;"></div>
+                <div data-badge-popover="right" data-badge-type="1" data-pmid="${statement.pmid}" data-hide-no-mentions="true" class="altmetric-embed" style="display: inline;"></div>
             <#elseif statement.isbn10??>
-                <div data-badge-popover="right" data-badge-type="4" data-isbn="${statement.isbn10}" data-hide-no-mentions="true" class="altmetric-embed" style="display: inline;"></div>
+                <div data-badge-popover="right" data-badge-type="1" data-isbn="${statement.isbn10}" data-hide-no-mentions="true" class="altmetric-embed" style="display: inline;"></div>
             <#elseif statement.isbn13??>
-                <div data-badge-popover="right" data-badge-type="4" data-isbn="${statement.isbn13}" data-hide-no-mentions="true" class="altmetric-embed" style="display: inline;"></div>
+                <div data-badge-popover="right" data-badge-type="1" data-isbn="${statement.isbn13}" data-hide-no-mentions="true" class="altmetric-embed" style="display: inline;"></div>
             </#if>
         </#if>
     </#local>
 
-    <#local plum>
-        <#if plumPrintEnabled??>
-            <#if statement.doi??>
-                <#assign plumIdParam = "doi=${statement.doi}">
-            <#elseif statement.pmid??>
-                <#assign plumIdParam = "pmid=${statement.pmid}">
-            <#elseif statement.isbn10??>
-                <#assign plumIdParam = "isbn=${statement.isbn10}">
-            <#elseif statement.isbn13??>
-                <#assign plumIdParam = "isbn=${statement.isbn13}">
-            <#elseif statement.oclc??>
-                <#assign plumIdParam = "oclc=${statement.oclc}">
-            <#else>
-                <#assign plumIdParam = "">
-            </#if>
-            <#if plumIdParam?has_content>
-                <div class="plum-print-wrapper" style="display: inline-block; vertical-align: top">
-                    <a class="plumx-plum-print-popup"
-                       href="https://plu.mx/plum/a/?${plumIdParam}"
-                       data-popup="hidden"
-                       data-hide-when-empty="${plumPrintHideEmpty}"
-                       data-site="plum"
-                       data-size="tiny"
-                       data-badge="true"></a>
-                </div>
-            </#if>
-        </#if>
-    </#local>
-
-    ${resourceTitle} ${citationDetails} <@dt.yearSpan "${statement.dateTime!}" /> ${altMetric} ${plum}
+   ${resourceTitle} ${citationDetails} <@dt.yearSpan "${statement.dateTime!}" /> ${doi} ${altMetric}
 </#if>
 </#macro>

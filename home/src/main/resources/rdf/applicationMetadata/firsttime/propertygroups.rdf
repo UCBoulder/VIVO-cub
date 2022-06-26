@@ -11,7 +11,7 @@
     xmlns:j.6="http://www.w3.org/2003/06/sw-vocab-status/ns#"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" >
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
   <rdf:Description rdf:about="http://vivoweb.org/ontology#vitroPropertyGroupaffiliation">
     <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2009-12-28T09:47:01</vitro:modTime>
     <rdfs:label xml:lang="en-US">affiliation</rdfs:label>
@@ -23,7 +23,7 @@
   <rdf:Description rdf:about="http://vivoweb.org/ontology#vitroPropertyGroupidentifiers">
     <vitro:displayRank rdf:datatype="http://www.w3.org/2001/XMLSchema#int">200</vitro:displayRank>
     <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2009-12-28T09:16:01</vitro:modTime>
-    <rdfs:label xml:lang="en-US">identity</rdfs:label>
+    <rdfs:label xml:lang="en-US">Other Profiles</rdfs:label>
     <rdf:type rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#PropertyGroup"/>
     <vitro:publicDescriptionAnnot rdf:datatype="http://www.w3.org/2001/XMLSchema#string">properties holding unique and non-unique identifiers, names, and other identification information</vitro:publicDescriptionAnnot>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
@@ -63,7 +63,7 @@
     <rdfs:label xml:lang="en-US">research</rdfs:label>
     <vitro:modTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2010-01-10T15:30:25</vitro:modTime>
     <rdf:type rdf:resource="http://vitro.mannlib.cornell.edu/ns/vitro/0.7#PropertyGroup"/>
-    <vitro:displayRank rdf:datatype="http://www.w3.org/2001/XMLSchema#int">50</vitro:displayRank>
+    <vitro:displayRank rdf:datatype="http://www.w3.org/2001/XMLSchema#int">35</vitro:displayRank>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://vivoweb.org/ontology#vitroPropertyGroupoutreach">

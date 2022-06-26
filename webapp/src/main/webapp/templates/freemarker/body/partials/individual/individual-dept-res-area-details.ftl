@@ -1,4 +1,4 @@
-<#-- $This file is distributed under the terms of the license in LICENSE$  -->
+<#-- $This file is distributed under the terms of the license in /doc/license.txt$  -->
 <#if deptResearchAreas?has_content>
     <section id="pageList">
         <#list deptResearchAreas as firstRow>
@@ -13,11 +13,11 @@
         <ul role="list" class="deptDetailsList">
             <#list deptResearchAreas as resultRow>
 		        <li class="deptDetailsListItem">
-		                <a href="${urls.base}/individual${resultRow["person"]?substring(resultRow["person"]?last_index_of("/"))}" title="${i18n().person_name}">${resultRow["personLabel"]}</a>
+		                <a href="/individual?uri=${resultRow["person"]}" title="${i18n().person_name}">${resultRow["personLabel"]}</a>
 		        </li>
             </#list>
         </ul>
-
+    
     </section>
 </#if>
 
